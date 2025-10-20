@@ -1,76 +1,109 @@
-import React from "react";
-import { View, Text, Pressable } from "react-native";
-import { StyleSheet } from "react-native";
+import React, { Component } from "react";
+import { View, Text, TextInput, Pressable, StyleSheet } from "react-native";
 
-function Login(props) {
-  return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Ingresar</Text>
-      <Text style={styles.text}>
-        Esta es la pantalla donde debe ir el formulario de login.
-      </Text>
-      <Text style={styles.text}>Navegación cruzada a Register:</Text>
+class Login extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      email: "",
+      password: "",
+    };
+  }
 
-      <Pressable
-        style={styles.buttonBlue}
-        onPress={() => props.navigation.navigate("Register")}
-      >
-        <Text style={styles.buttonText}>No tengo cuenta</Text>
-      </Pressable>
+  onSubmit() {
+    console.log("Datos de login:");
+    console.log("Email:", this.state.email);
+    console.log("Password:", this.state.password);
+  }
 
-      <Text style={styles.text}>
-        Navegación cruzada a ingresar a la app. Este paso se hará automáticamente
-        cuando veamos la funcionalidad de login.
-      </Text>
+  render() {
+    return (
+      <View style={styles.contenedor}>
+        <Text style={styles.titulo}>Ingresar</Text>
 
-      <Pressable
-        style={styles.buttonOrange}
-        onPress={() => props.navigation.navigate("HomeMenu")}
-      >
-        <Text style={styles.buttonText}>Entrar en la app.</Text>
-      </Pressable>
-    </View>
-  );
+        <TextInput
+          style={styles.field}
+          placeholder="Email"
+          keyboardType="email-address"
+          value={this.state.email}
+          onChangeText={(text) => this.setState({ email: text })}
+        />
+        <TextInput
+          style={styles.field}
+          placeholder="Password"
+          secureTextEntry={true}
+          value={this.state.password}
+          onChangeText={(text) => this.setState({ password: text })}
+        />
+
+        <Pressable style={styles.logi} onPress={() => this.onSubmit()}>
+          <Text>Login</Text>
+        </Pressable>
+
+        <Pressable
+          style={styles.boton}
+          onPress={() => this.props.navigation.navigate("Register")}
+        >
+          <Text>Ir al registro</Text>
+        </Pressable>
+        <Pressable
+          style={styles.boton2}
+          onPress={() => this.props.navigation.navigate("HomeMenu")}
+        >
+          <Text>Entrar a la App</Text>
+        </Pressable>
+
+      </View>
+    );
+  }
 }
 
 const styles = StyleSheet.create({
-  container: {
-    backgroundColor: "#f5f5f5",
-    flex: 1,
+  contenedor: {
+    paddingLeft: 10,
+    paddingRight: 10,
+    marginTop: 20,
     alignItems: "center",
-    justifyContent: "center",
-    padding: 20,
   },
-  title: {
-    fontSize: 28,
+  titulo: {
+    fontSize: 30,
     fontWeight: "bold",
-    marginBottom: 10,
+    marginTop: 20,
+    marginBottom: 20,
   },
-  text: {
-    fontSize: 16,
-    textAlign: "center",
-    marginBottom: 8,
-  },
-  buttonBlue: {
-    backgroundColor: "#4db8ff",
-    borderRadius: 8,
-    paddingVertical: 12,
-    paddingHorizontal: 25,
+  field: {
+    height: 40,
+    paddingLeft: 10,
+    paddingRight: 10,
+    borderWidth: 1,
+    borderColor: "orange",
+    borderRadius: 5,
     marginTop: 10,
-    width: "80%",
+    width: 250,
   },
-  buttonOrange: {
-    backgroundColor: "#ffa500",
-    borderRadius: 8,
-    paddingVertical: 12,
-    paddingHorizontal: 25,
+  logi: {
+    backgroundColor: "orange",
+    padding: 10,
+    marginTop: 20,
+    width: 250,
+    borderRadius: 5,
+    alignItems: "center",
+  },
+  boton: {
+    backgroundColor: "lightblue",
+    padding: 10,
+    marginTop: 20,
+    width: 250,
+    borderRadius: 5,
+    alignItems: "center",
+  },
+  boton2: {
+    backgroundColor: "orange",
+    padding: 10,
     marginTop: 10,
-    width: "80%",
-  },
-  buttonText: {
-    textAlign: "center",
-    fontSize: 16,
-    color: "#000",
+    width: 250,
+    borderRadius: 5,
+    alignItems: "center",
   },
 });
 
