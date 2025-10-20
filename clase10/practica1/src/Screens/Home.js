@@ -1,15 +1,23 @@
 import React from "react";
-import { View, Text} from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import DynamicForm from "../Components/DynamicForm";
 
-
 function Home() {
-    return(
-    <View>
-        <Text>Home</Text>
-        <DynamicForm/>
-    </View>
-    )}
-  
+    return (
+        <View>
+            <Text style={styles.titulo}>Home</Text>
+            <DynamicForm />
+        </View>
+    );
+}
 
-  export default Home;
+const styles = StyleSheet.create({
+    titulo: {
+        fontSize: 30,
+        fontWeight: "bold",
+        marginTop: 20,
+        marginBottom: 20,
+    },
+});
+
+export default Home;
