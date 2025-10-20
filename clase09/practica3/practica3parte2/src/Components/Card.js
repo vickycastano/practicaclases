@@ -6,7 +6,6 @@ function Card(props) {
     <FlatList
       data={props.products}
       keyExtractor={(item) => item.id.toString()}
-      style={styles.flatlist}
       renderItem={({ item }) => (
         <View style={styles.card}>
           <Image
@@ -23,20 +22,12 @@ function Card(props) {
     />
   );
 }
-
 const styles = StyleSheet.create({
-  flatlist: {
-    flex: 1,
-  },
   card: {
     backgroundColor: "#f9f9f9",
     borderRadius: 10,
     padding: 12,
     marginBottom: 15,
-    shadowColor: "#000",
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 3,
   },
   image: {
     width: "100%",
