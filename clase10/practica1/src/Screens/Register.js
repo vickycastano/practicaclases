@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import { View, Text, Image, StyleSheet, FlatList, TextInput } from "react-native";
 import { Pressable } from "react-native";
-import { auth } from "../firebase/config"
+import { db, auth } from "../firebase/config"
 
 class Register extends Component {
     
@@ -16,9 +16,9 @@ class Register extends Component {
         }
     }
 
-    onSubmit (){
+    onSubmit (email,userName,password){
        
-        auth.createUserWithEmailAndPassword(this.state.email, this.state.password)
+        auth.createUserWithEmailAndPassword(email, password)
         .then( response => {
             this.setState({registered: true});
             console.log(response);
@@ -26,17 +26,28 @@ class Register extends Component {
             console.log("email:", this.state.email)
             console.log("user name:", this.state.userName)
             console.log("password:", this.state.password)
-
             this.props.navigation.navigate('Login')
+
+            db.collection('users').add({
+                userName: this.state.userName,
+                email: this.state.email,
+                createdAt: Date.now(),
+            })
+            .then()
+            .catch( e => console.log(e))
+    
 
          })     
         .catch( error => {
             console.log(error);
-            this.setState({error: 'Fallo en el registro.'})
+          this.setState({error: 'Fallo en el registro.'})
         })
      }
     
-    render (){
+    
+
+
+     render (){
         return(
             <View style={styles.container}>
                 <Text style={styles.titulo} >Register</Text>
@@ -61,7 +72,7 @@ class Register extends Component {
                     onChangeText={ text => this.setState({password:text}) }
                     value={this.state.password}/> 
 
-                <Pressable onPress={() => this.onSubmit()} style={styles.regi}>
+                <Pressable onPress={() => this.onSubmit(this.state.email, this.state.userName, this.state.password)} style={styles.regi}>
                     <Text> Register </Text> 
                 </Pressable> 
 
@@ -72,6 +83,7 @@ class Register extends Component {
         )
     }
 }
+
 
 const styles = StyleSheet.create({
     container: {
@@ -114,5 +126,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
 })
+
+
 
 export default Register;

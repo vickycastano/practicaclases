@@ -3,8 +3,10 @@ import { View, Text} from 'react-native';
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import AntDesign from '@expo/vector-icons/AntDesign';
 import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
+import Feather from '@expo/vector-icons/Feather';
 import Home from "../Screens/Home";
 import Profile from "../Screens/Profile";
+import Usuarios from "../Screens/Usuarios";
 const Tab = createBottomTabNavigator();
 
 
@@ -16,7 +18,10 @@ function HomeMenu() {
                 options={ { tabBarIcon: () => <FontAwesome5 name="home" size={24} color="black" /> }} />
 
             <Tab.Screen name="Profile" component={Profile}
-                options={{ tabBarIcon: () => <AntDesign name="profile" size={24} color="black" /> }}  />   
+                options={{ tabBarIcon: () => <AntDesign name="profile" size={24} color="black" /> }}  />
+
+             <Tab.Screen name="Usuarios" component={Usuarios}
+                options={{ tabBarIcon: () => <Feather name="users" size={24} color="black" /> }}  />      
         </Tab.Navigator>
 
     )}
